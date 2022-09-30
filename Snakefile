@@ -119,7 +119,6 @@ rule all_genome_storages:
     expand("data/anvio_genomes_storage/{subset}_GENOMES.db",subset=ORDERS),
     "data/anvio_genomes_storage/all_GENOMES.db"
 
-
 ############################### stage 2 create Azolla meta-pangenomes ###############################
 
 rule create_pangenome_analysis:
@@ -157,7 +156,7 @@ rule create_pangenome_ANI:
   threads: 12
   shell:
     """
-    anvi-compute-genome-similarity --external-genomes {input.external} \
+    anvi-compute-genome-similarity --internal-genomes {input.txt} \
                                    --program pyANI                     \
                                    --output-dir {output}               \
                                    --num-threads {threads}             \
@@ -209,8 +208,8 @@ rule phylogenomic_tree_nonpar:
                           mcl=w.mcl)
   threads: 6
   log:
-    stdout="logs/IQtree/anvi_phylogenomic_{subset}_mcl{mcl}.stdout",
-    stderr="logs/IQtree/anvi_phylogenomic_{subset}_mcl{mcl}.stderr"
+    stdout="logs/phylogenomics/anvi_phylogenomic_{subset}_mcl{mcl}.stdout",
+    stderr="logs/phylogenomics/anvi_phylogenomic_{subset}_mcl{mcl}.stderr"
   shell:
     """
     iqtree -s {input.fasta}     \
@@ -235,8 +234,8 @@ rule phylogenomic_tree_big:
                           subset=w.subset)
   threads: 6
   log:
-    stdout="logs/IQtree/anvi_phylogenomic_Nostocaceae_mcl{mcl}.stdout",
-    stderr="logs/IQtree/anvi_phylogenomic_Nostocaceae_mcl{mcl}.stderr"
+    stdout="logs/phylogenomics/anvi_phylogenomic_{subset}_mcl{mcl}.stdout",
+    stderr="logs/phylogenomics/anvi_phylogenomic_{subset}_mcl{mcl}.stderr"
   shell:
     """
     iqtree -s {input.fasta}     \
