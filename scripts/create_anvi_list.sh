@@ -8,7 +8,7 @@ MT=data/bin_master_table.tab
 # use subset var in output name if a subset is set al all
 if   [ "$subset" ]
 then output=scripts/anvi_genomes_internal_"$subset".tab
-else output=scripts/anvi_genomes_internal.tab
+else output=scripts/anvi_genomes_internal_all.tab
 fi
 
 # create temporary output file for subsetting purposes
