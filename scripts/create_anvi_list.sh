@@ -17,7 +17,7 @@ else output=scripts/anvi_genomes_internal_all.tab
 fi
 
 # create temporary output file for subsetting purposes
-MTt="$MT".temp
+MTt="$MT"."$subset".temp
 cut -f 1,2,27- -d ' ' "$MT" | grep "$subset" > "$MTt"
 
 # first make a header in the output file
