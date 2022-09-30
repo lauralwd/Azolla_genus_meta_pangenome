@@ -159,15 +159,17 @@ rule create_pangenome_analysis_subset:
     dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset)
   shell:
     """
-    genomes=$(cut -f 1 {input.txt} | tail -n +2 | tr '\n' ',' | sed 's/,$/\n/g')
+    genomes=$(cut -f 1 {input.txt} | tail -n +2 | tr '\n' ',' | sed "s/,$//g" )
     anvi-pan-genome -g {input.allstorage}                           \
                     --project-name {wildcards.subset}_mcl{wildcards.mcl} \
                     --genome-names $genomes              \
                     --output-dir   {params.dir}          \
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
+                    --exclude-partial-gene-calls         \
+                    --min-occurrence 3                   \
                     --mcl-inflation {wildcards.mcl}      \
-                    --use-ncbi-blast                     \
+                    --sensitive                          \
     > {log.stdout} 2> {log.stderr}
     """
 
