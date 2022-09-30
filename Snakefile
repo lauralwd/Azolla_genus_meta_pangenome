@@ -190,3 +190,80 @@ rule collect_PAN_ANI_for_mcl:
   output:
     touch("data/anvio_pangenomes/all_pangenomes_MCL{mcl}.touch")
 
+
+rule extract_phylogenomic_fasta:
+  input:
+    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
+    genomestorage="data/anvio_genomes_storage/{subset}_GENOMES.db"
+  output:
+    fasta="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.fasta",
+    partition="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.partitions"
+  log:
+    stdout="logs/phylogenomics/anvi_pangenome_fasta_{subset}_mcl{mcl}.stdout",
+    stderr="logs/phylogenomics/anvi_pangenome_fasta_{subset}_mcl{mcl}.stderr"
+  shell:
+    """
+    anvi-get-sequences-for-gene-clusters -p {input.pangenome}        \
+                                         -g {input.genomestorage}    \
+                                         -C default                  \
+                                         -b phylogenomic_core        \
+                                         --concatenate-gene-clusters \
+                                         --report-DNA-sequences --just-do-it  \
+                                         --align-with muscle         \
+                                         --partition-file {output.partition} \
+                                         -o {output.fasta}           \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule phylogenomic_tree_nonpar:
+  input:
+    fasta="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.fasta",
+    partition="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.partitions"
+  output:
+    tree="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomics/{subset}_nonparametric.treefile"
+  params:
+    pre=lambda w: expand ("data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomics/{subset}_nonparametric",
+                          subset=w.subset,
+                          mcl=w.mcl)
+  threads: 6
+  log:
+    stdout="logs/IQtree/anvi_phylogenomic_{subset}_mcl{mcl}.stdout",
+    stderr="logs/IQtree/anvi_phylogenomic_{subset}_mcl{mcl}.stderr"
+  shell:
+    """
+    iqtree -s {input.fasta}     \
+           -p {input.partition} \
+           -m MFP+MERGE         \
+           -b 100               \
+           -nt {threads}        \
+           -ntmax {threads}     \
+           -pre {params.pre}    \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule phylogenomic_tree_big:
+  input:
+    fasta="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.fasta",
+    partition="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.partitions"
+  output:
+    tree="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomics/{subset}_UFbootstrap.treefile"
+  params:
+    pre=lambda w: expand ("data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomics/{subset}_UFbootstrap",
+                          mcl=w.mcl,
+                          subset=w.subset)
+  threads: 6
+  log:
+    stdout="logs/IQtree/anvi_phylogenomic_Nostocaceae_mcl{mcl}.stdout",
+    stderr="logs/IQtree/anvi_phylogenomic_Nostocaceae_mcl{mcl}.stderr"
+  shell:
+    """
+    iqtree -s {input.fasta}     \
+           -p {input.partition} \
+           -m MFP+MERGE         \
+           -bb 2000             \
+           -alrt 2000           \
+           -nt {threads}        \
+           -ntmax {threads}     \
+           -pre {params.pre}    \
+    > {log.stdout} 2> {log.stderr}
+    """
