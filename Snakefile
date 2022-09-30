@@ -1,0 +1,184 @@
+MAG_HOSTS=['Azfil_lab','Azfil_wild','Azfil_minus_cyano','Azmex','Azmic','Aznil','Azrub','Azcar1','Azcar2']
+ORDERS=['Burkholderiales', 'Caulobacterales', 'Nevskiales', 'Rhizobiales', 'Sphingomonadales']
+
+############################### stage 1: collect MAGs and genomes from the Azolla genus metagenome project ###############################
+rule gather_anvi_MAGs:
+  output:
+    expand("data/MAG_anvi_dbs/{mag_host}_contigs.db" ,mag_host=MAG_HOSTS),
+    expand("data/MAG_anvi_dbs/{mag_host}_PROFILE.db" ,mag_host=MAG_HOSTS)
+  shell:
+    "bash ./scripts/collect_mag_dbs.sh"
+
+# you may need to remove old hmm, kegg, cogg results, or choose to keep your current ones and ignore the next three rules
+rule anvi_contigdb_runhmms:
+  input:
+    "{db}_contigs.db"
+  output:
+    touch("{db}_contigs.db.hmms")
+  log:
+    stderr="logs/anvi_annotate/{db}_hmms.stderr",
+    stdout="logs/anvi_annotate/{db}_hmms.stdout"
+  threads: 6
+  shell:
+    """
+    anvi-run-hmms -c {input}   \
+                  -T {threads} \
+                  --just-do-it \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule anvi_contigdb_kegg:
+  input:
+    "{db}_contigs.db"
+  output:
+    touch("{db}_contigs.db.kegg")
+  log:
+    stderr="logs/anvi_annotate/{db}_kegg.stderr",
+    stdout="logs/anvi_annotate/{db}_kegg.stdout"
+  threads: 6
+  shell:
+    """
+    anvi-run-kegg-kofams -c {input}   \
+                         -T {threads} \
+                         --just-do-it \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule anvi_contigdb_cogs:
+  input:
+    "{db}_contigs.db"
+  output:
+    touch("{db}_contigs.db.cogs")
+  log:
+    stderr="logs/anvi_annotate/{db}_cogs.stderr",
+    stdout="logs/anvi_annotate/{db}_cogs.stdout"
+  threads: 6
+  shell:
+    """
+    anvi-run-ncbi-cogs -c {input}   \
+                       -T {threads} \
+                       --sensitive  \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule anvi_MAGs_to_fasta:
+  input:
+    "data/MAG_anvi_dbs/{mag_host}_contigs.db"
+  output:
+    "data/MAG_anvi_dbs/{mag_host}_contigs.fasta"
+  log:
+    stderr="logs/MAG_anvi_dbs/export_contigs_{mag_host}.stderr",
+    stdout="logs/MAG_anvi_dbs/export_contigs_{mag_host}.stdout"
+  shell:
+    """
+    anvi-export-contigs -c {input}  \
+                        -o {output} \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule anvi_internal_list_all:
+  input:
+    "data/bin_master_table.tab"
+  output:
+    "scripts/anvi_genomes_internal.tab"
+  shell:
+    """
+    scripts/create_anvi_list.sh
+    """
+
+rule anvi_internal_list_subset:
+  input:
+    "data/bin_master_table.tab"
+  output:
+    "scripts/anvi_genomes_internal_{subset}.tab"
+  shell:
+    """
+    scripts/create_anvi_list.sh {wildcards.subset}
+    """
+
+rule create_pangenome_storage_internal:
+  input:
+    dbs=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db"      ,mag_host=MAG_HOSTS                           ),
+    ann=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db.{ext}",mag_host=MAG_HOSTS,ext=['hmms','kegg','cogs']),
+    txt="scripts/anvi_genomes_internal.tab"
+  output:
+    "data/anvio_genomes_storage/all_GENOMES.db"
+  log:
+    stdout="logs/pangenomics/anvi_create_pangenome_storage_all.stdout",
+    stderr="logs/pangenomics/anvi_create_pangenome_storage_all.stderr"
+  shell:
+    """
+    anvi-gen-genomes-storage \
+      -i {input.txt} \
+      -o {output}    \
+      > {log.stdout} 2> {log.stderr}
+    """
+
+rule create_pangenome_storage_internal_subset:
+  input:
+    dbs=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db"      ,mag_host=MAG_HOSTS                           ),
+    ann=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db.{ext}",mag_host=MAG_HOSTS,ext=['hmms','kegg','cogs']),
+    txt="scripts/anvi_genomes_internal_{subset}.tab"
+  output:
+    "data/anvio_genomes_storage/{subset}_GENOMES.db"
+  log:
+    stdout="logs/pangenomics/anvi_create_pangenome_storage_{subset}.stdout",
+    stderr="logs/pangenomics/anvi_create_pangenome_storage_{subset}.stderr"
+  shell:
+    """
+    anvi-gen-genomes-storage \
+      -i {input.txt} \
+      -o {output}    \
+      > {log.stdout} 2> {log.stderr}
+    """
+
+rule all_genome_storages:
+  input:
+    expand("data/anvio_genomes_storage/MAGs_{subset}_GENOMES.db",subset=ORDERS),
+    "data/anvio_genomes_storage/MAGs_all_GENOMES.db"
+
+
+############################### stage 2 create Azolla meta-pangenomes ###############################
+
+rule create_pangenome_analysis:
+  input:
+    "data/anvio_genomes_storage/{subset}_GENOMES.db"
+  output:
+    "data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db"
+  log:
+    stdout="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stdout",
+    stderr="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stderr"
+  threads: 12
+  params:
+    dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset)
+  shell:
+    """
+    anvi-pan-genome -g {input}                           \
+                    --project-name {wildcards.subset}_mcl{wildcards.mcl} \
+                    --output-dir   {params.dir}          \
+                    --num-threads  {threads}             \
+                    --minbit 0.5                         \
+                    --mcl-inflation {wildcards.mcl}      \
+                    --use-ncbi-blast                     \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule create_pangenome_ANI:
+  input:
+    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
+    txt="scripts/anvi_genomes_internal_{subset}.tab"
+  output:
+    directory("data/anvio_pangenomes/{subset}_ANI_mcl{mcl}")
+  log:
+    stdout="logs/pangenomics/anvi_create_pangenome_ANI_{subset}_mcl{mcl}.stdout",
+    stderr="logs/pangenomics/anvi_create_pangenome_ANI_{subset}_mcl{mcl}.stderr"
+  threads: 12
+  shell:
+    """
+    anvi-compute-genome-similarity --external-genomes {input.external} \
+                                   --program pyANI                     \
+                                   --output-dir {output}               \
+                                   --num-threads {threads}             \
+                                   --pan-db {input.pangenome}          \
+     > {log.stdout} 2> {log.stderr}
+    """
