@@ -5,6 +5,8 @@ cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembl
   data/MAG_anvi_dbs/Azfil_wild_contigs.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_hybrid_doublefiltered_anvio/Azfil_lab/Azfil_lab_contigs.db		               \
   data/MAG_anvi_dbs/Azfil_lab_contigs.db
+cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_hybrid_doublefiltered_anvio/Azfil_minuscyano/Azfil_minuscyano_contigs.db          \
+  data/MAG_anvi_dbs/Azfil_minus_cyano_contigs.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_singles_doublefiltered_anvio/Azrub_IRRI_479/Azrub_IRRI_479_contigs.db		     \
   data/MAG_anvi_dbs/Azrub_contigs.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_singles_doublefiltered_anvio/Azmex_IRRI_486/Azmex_IRRI_486_contigs.db		     \
@@ -23,6 +25,8 @@ cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembl
   data/MAG_anvi_dbs/Azfil_wild_PROFILE.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_hybrid_doublefiltered_binningsignals_anvio/MERGED_Azfil_lab/PROFILE.db		\
   data/MAG_anvi_dbs/Azfil_lab_PROFILE.db
+cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_hybrid_doublefiltered_binningsignals_anvio/MERGED_Azfil_minuscyano/PROFILE.db          \
+  data/MAG_anvi_dbs/Azfil_minus_cyano_PROFILE.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_singles_doublefiltered_binningsignals_anvio/MERGED_Azrub_IRRI_479/PROFILE.db		\
   data/MAG_anvi_dbs/Azrub_PROFILE.db
 cp --reflink=always /stor/azolla_metagenome/Azolla_genus_metagenome/data/assembly_singles_doublefiltered_binningsignals_anvio/MERGED_Azmex_IRRI_486/PROFILE.db		\
