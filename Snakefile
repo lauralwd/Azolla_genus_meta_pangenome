@@ -182,3 +182,11 @@ rule create_pangenome_ANI:
                                    --pan-db {input.pangenome}          \
      > {log.stdout} 2> {log.stderr}
     """
+
+rule collect_PAN_ANI_for_mcl:
+  input:
+    expand("data/anvio_pangenomes/{subset}_ANI_mcl{{mcl}}",subset=ORDERS),
+    expand("data/anvio_pangenomes/{subset}_ANI_mcl{{mcl}}",subset='all')
+  output:
+    touch("data/anvio_pangenomes/all_pangenomes_MCL{mcl}.touch")
+
