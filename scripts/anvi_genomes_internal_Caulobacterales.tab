@@ -1,0 +1,12 @@
+name	bin_id	collection_id	profile_db_path	contigs_db_path
+Azfil_wild_Caulobacter	Caulobacter	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
+Azmex_Asticcacaulis	Asticcacaulis	refined	../data/MAG_anvi_dbs/Azmex_PROFILE.db	../data/MAG_anvi_dbs/Azmex_contigs.db
+Azmic_Alphaproteobacteria	Alphaproteobacteria	refined	../data/MAG_anvi_dbs/Azmic_PROFILE.db	../data/MAG_anvi_dbs/Azmic_contigs.db
+Azmic_Asticcacaulis	Asticcacaulis	refined	../data/MAG_anvi_dbs/Azmic_PROFILE.db	../data/MAG_anvi_dbs/Azmic_contigs.db
+Azmic_Asticcacaulis_taihuensis	Asticcacaulis_taihuensis	refined	../data/MAG_anvi_dbs/Azmic_PROFILE.db	../data/MAG_anvi_dbs/Azmic_contigs.db
+Azcar1_Asticacaulis	Asticacaulis	refined	../data/MAG_anvi_dbs/Azcar1_PROFILE.db	../data/MAG_anvi_dbs/Azcar1_contigs.db
+Azcar1_Caulobacter	Caulobacter	refined	../data/MAG_anvi_dbs/Azcar1_PROFILE.db	../data/MAG_anvi_dbs/Azcar1_contigs.db
+Azcar2_489_Asticcacaulis	Asticcacaulis	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
+Azcar2_489_Asticcacaulis2	Asticcacaulis2	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
+Azcar2_489_Asticcacaulis_taihuensis	Asticcacaulis_taihuensis	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
+Azcar2_489_Caulobacterales	Caulobacterales	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
