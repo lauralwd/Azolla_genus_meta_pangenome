@@ -5,6 +5,11 @@ subset="$1"
 # bin Master table
 MT=data/bin_master_table.tab
 
+# all is no subset
+if   [ "$subset" == 'all' ]
+then unset subset
+fi
+
 # use subset var in output name if a subset is set al all
 if   [ "$subset" ]
 then output=scripts/anvi_genomes_internal_"$subset".tab
