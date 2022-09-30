@@ -80,7 +80,7 @@ rule anvi_internal_list_all:
   input:
     "data/bin_master_table.tab"
   output:
-    "scripts/anvi_genomes_internal.tab"
+    "scripts/anvi_genomes_internal_all.tab"
   shell:
     """
     scripts/create_anvi_list.sh
@@ -134,8 +134,8 @@ rule create_pangenome_storage_internal_subset:
 
 rule all_genome_storages:
   input:
-    expand("data/anvio_genomes_storage/MAGs_{subset}_GENOMES.db",subset=ORDERS),
-    "data/anvio_genomes_storage/MAGs_all_GENOMES.db"
+    expand("data/anvio_genomes_storage/{subset}_GENOMES.db",subset=ORDERS),
+    "data/anvio_genomes_storage/all_GENOMES.db"
 
 
 ############################### stage 2 create Azolla meta-pangenomes ###############################
