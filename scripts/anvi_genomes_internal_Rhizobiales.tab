@@ -11,9 +11,9 @@ Azfil_lab_Bradyrhizobium	Bradyrhizobium	refined	../data/MAG_anvi_dbs/Azfil_lab_P
 Azfil_lab_Hyphomicrobium	Hyphomicrobium	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
 Azfil_lab_Rhizobiaceae_endophytic	Rhizobiaceae_endophytic	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
 Azfil_lab_Rhizobiales	Rhizobiales	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
-Azfil_minuscyano_Rhizobiales_endophytic	Rhizobiales_endophytic	refined	../data/MAG_anvi_dbs/Azfil_minuscyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minuscyano_contigs.db
-Azfil_minuscyano_Rhizobiales_lab	Rhizobiales_lab	refined	../data/MAG_anvi_dbs/Azfil_minuscyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minuscyano_contigs.db
-Azfil_minuscyano_Rhizobiales_wild	Rhizobiales_wild	refined	../data/MAG_anvi_dbs/Azfil_minuscyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minuscyano_contigs.db
+Azfil_minus_cyano_Rhizobiales_endophytic	Rhizobiales_endophytic	refined	../data/MAG_anvi_dbs/Azfil_minus_cyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minus_cyano_contigs.db
+Azfil_minus_cyano_Rhizobiales_lab	Rhizobiales_lab	refined	../data/MAG_anvi_dbs/Azfil_minus_cyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minus_cyano_contigs.db
+Azfil_minus_cyano_Rhizobiales_wild	Rhizobiales_wild	refined	../data/MAG_anvi_dbs/Azfil_minus_cyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minus_cyano_contigs.db
 Azfil_wild_Rhizobiales	Rhizobiales	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_Rhizobium	Rhizobium	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_rest_4	rest_4	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
@@ -43,8 +43,8 @@ Azcar1_Bradyrhizobiaceae	Bradyrhizobiaceae	refined	../data/MAG_anvi_dbs/Azcar1_P
 Azcar1_Bradyrhizobium	Bradyrhizobium	refined	../data/MAG_anvi_dbs/Azcar1_PROFILE.db	../data/MAG_anvi_dbs/Azcar1_contigs.db
 Azcar1_Rhizobiales	Rhizobiales	refined	../data/MAG_anvi_dbs/Azcar1_PROFILE.db	../data/MAG_anvi_dbs/Azcar1_contigs.db
 Azcar1_Rhizobiales2	Rhizobiales2	refined	../data/MAG_anvi_dbs/Azcar1_PROFILE.db	../data/MAG_anvi_dbs/Azcar1_contigs.db
-Azcar2_489_Alphaproteobacteria	Alphaproteobacteria	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
-Azcar2_489_Bradyrhizobium	Bradyrhizobium	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
-Azcar2_489_Rhizobiales	Rhizobiales	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
-Azcar2_489_Rhizobiales2	Rhizobiales2	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
-Azcar2_489_Rhizobiales3	Rhizobiales3	refined	../data/MAG_anvi_dbs/Azcar2_489_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_489_contigs.db
+Azcar2_Alphaproteobacteria	Alphaproteobacteria	refined	../data/MAG_anvi_dbs/Azcar2_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_contigs.db
+Azcar2_Bradyrhizobium	Bradyrhizobium	refined	../data/MAG_anvi_dbs/Azcar2_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_contigs.db
+Azcar2_Rhizobiales	Rhizobiales	refined	../data/MAG_anvi_dbs/Azcar2_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_contigs.db
+Azcar2_Rhizobiales2	Rhizobiales2	refined	../data/MAG_anvi_dbs/Azcar2_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_contigs.db
+Azcar2_Rhizobiales3	Rhizobiales3	refined	../data/MAG_anvi_dbs/Azcar2_PROFILE.db	../data/MAG_anvi_dbs/Azcar2_contigs.db

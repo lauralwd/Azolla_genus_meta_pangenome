@@ -1,7 +1,7 @@
 name	bin_id	collection_id	profile_db_path	contigs_db_path
 Azfil_lab_Burkholderiales	Burkholderiales	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
 Azfil_lab_Ralstonia_1	Ralstonia_1	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
-Azfil_minuscyano_Ralstonia_maybewild	Ralstonia_maybewild	refined	../data/MAG_anvi_dbs/Azfil_minuscyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minuscyano_contigs.db
+Azfil_minus_cyano_Ralstonia_maybewild	Ralstonia_maybewild	refined	../data/MAG_anvi_dbs/Azfil_minus_cyano_PROFILE.db	../data/MAG_anvi_dbs/Azfil_minus_cyano_contigs.db
 Azfil_wild_Comamonadaceae	Comamonadaceae	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_Curvibacter	Curvibacter	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_Polaromonas	Polaromonas	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
