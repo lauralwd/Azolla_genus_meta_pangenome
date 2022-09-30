@@ -159,7 +159,7 @@ rule create_pangenome_analysis_subset:
     dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset)
   shell:
     """
-    genomes=$(cut -f 1 {input.txt} | tr '\n' ',')
+    genomes=$(cut -f 1 {input.txt} | tail -n +2 | tr '\n' ',' | sed 's/,$/\n/g')
     anvi-pan-genome -g {input.allstorage}                           \
                     --project-name {wildcards.subset}_mcl{wildcards.mcl} \
                     --genome-names $genomes              \
