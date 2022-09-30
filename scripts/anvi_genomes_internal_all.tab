@@ -10,7 +10,6 @@ Azrub_Rhizobiales5	Rhizobiales5	refined	../data/MAG_anvi_dbs/Azrub_PROFILE.db	..
 Azrub_Trichormus	Trichormus	refined	../data/MAG_anvi_dbs/Azrub_PROFILE.db	../data/MAG_anvi_dbs/Azrub_contigs.db
 Azrub_alphaproteobacteria	alphaproteobacteria	refined	../data/MAG_anvi_dbs/Azrub_PROFILE.db	../data/MAG_anvi_dbs/Azrub_contigs.db
 Azrub_proteobacteria	proteobacteria	refined	../data/MAG_anvi_dbs/Azrub_PROFILE.db	../data/MAG_anvi_dbs/Azrub_contigs.db
-Azrub_proteobacteria	proteobacteria	refined	../data/MAG_anvi_dbs/Azrub_PROFILE.db	../data/MAG_anvi_dbs/Azrub_contigs.db
 Azfil_lab_Bacteria	Bacteria	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
 Azfil_lab_Bacteriodetes1	Bacteriodetes1	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
 Azfil_lab_Bacteriodetes2	Bacteriodetes2	refined	../data/MAG_anvi_dbs/Azfil_lab_PROFILE.db	../data/MAG_anvi_dbs/Azfil_lab_contigs.db
@@ -44,7 +43,6 @@ Azfil_wild_Rhizobium	Rhizobium	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.d
 Azfil_wild_Rhodospirillaceae	Rhodospirillaceae	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_Trichormus	Trichormus	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_rest_1	rest_1	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
-Azfil_wild_rest_2	rest_2	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_rest_2	rest_2	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_rest_3	rest_3	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
 Azfil_wild_rest_4	rest_4	refined	../data/MAG_anvi_dbs/Azfil_wild_PROFILE.db	../data/MAG_anvi_dbs/Azfil_wild_contigs.db
