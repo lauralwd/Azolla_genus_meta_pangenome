@@ -121,11 +121,36 @@ rule all_genome_storages:
 
 ############################### stage 2 create Azolla meta-pangenomes ###############################
 
-rule create_pangenome_analysis:
+rule create_pangenome_analysis_all:
   input:
-    "data/anvio_genomes_storage/{subset}_GENOMES.db"
+    "data/anvio_genomes_storage/all_GENOMES.db"
   output:
-    "data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db"
+    "data/anvio_pangenomes/all_mcl{mcl}-PAN.db"
+  log:
+    stdout="logs/pangenomics/anvi_create_pangenome_all_mcl{mcl}.stdout",
+    stderr="logs/pangenomics/anvi_create_pangenome_all_mcl{mcl}.stderr"
+  threads: 12
+  shell:
+    """
+    anvi-pan-genome -g {input}                           \
+                    --project-name all_mcl{wildcards.mcl} \
+                    --output-dir data/anvio_pangenomes   \
+                    --num-threads  {threads}             \
+                    --minbit 0.5                         \
+                    --min-occurrence 3                   \
+                    --mcl-inflation {wildcards.mcl}      \
+                    --exclude-partial-gene-calls         \
+                    --sensitive                          \
+    > {log.stdout} 2> {log.stderr}
+    """
+
+rule create_pangenome_analysis_subset:
+  input:
+    allstorage="data/anvio_genomes_storage/all_GENOMES.db",
+    allpan="data/anvio_pangenomes/all_mcl{mcl}-PAN.db",
+    txt="scripts/anvi_genomes_internal_{subset}.tab"
+  output:
+    "data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db"
   log:
     stdout="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stdout",
     stderr="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stderr"
@@ -134,8 +159,10 @@ rule create_pangenome_analysis:
     dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset)
   shell:
     """
-    anvi-pan-genome -g {input}                           \
+    genomes=$(cut -f 1 {input.txt} | tr '\n' ',')
+    anvi-pan-genome -g {input.allstorage}                           \
                     --project-name {wildcards.subset}_mcl{wildcards.mcl} \
+                    --genome-names $genomes              \
                     --output-dir   {params.dir}          \
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
@@ -146,7 +173,7 @@ rule create_pangenome_analysis:
 
 rule create_pangenome_ANI:
   input:
-    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
+    pangenome="data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db",
     txt="scripts/anvi_genomes_internal_{subset}.tab"
   output:
     directory("data/anvio_pangenomes/{subset}_ANI_mcl{mcl}")
@@ -174,8 +201,8 @@ rule collect_PAN_ANI_for_mcl:
 
 rule extract_phylogenomic_fasta:
   input:
-    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
-    genomestorage="data/anvio_genomes_storage/{subset}_GENOMES.db"
+    pangenome="data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db",
+    genomestorage="data/anvio_genomes_storage/all_GENOMES.db"
   output:
     fasta="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.fasta",
     partition="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.partitions"
