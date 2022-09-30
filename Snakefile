@@ -100,24 +100,6 @@ rule create_pangenome_storage_internal:
   input:
     dbs=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db"      ,mag_host=MAG_HOSTS                           ),
     ann=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db.{ext}",mag_host=MAG_HOSTS,ext=['hmms','kegg','cogs']),
-    txt="scripts/anvi_genomes_internal.tab"
-  output:
-    "data/anvio_genomes_storage/all_GENOMES.db"
-  log:
-    stdout="logs/pangenomics/anvi_create_pangenome_storage_all.stdout",
-    stderr="logs/pangenomics/anvi_create_pangenome_storage_all.stderr"
-  shell:
-    """
-    anvi-gen-genomes-storage \
-      -i {input.txt} \
-      -o {output}    \
-      > {log.stdout} 2> {log.stderr}
-    """
-
-rule create_pangenome_storage_internal_subset:
-  input:
-    dbs=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db"      ,mag_host=MAG_HOSTS                           ),
-    ann=expand("data/MAG_anvi_dbs/{mag_host}_contigs.db.{ext}",mag_host=MAG_HOSTS,ext=['hmms','kegg','cogs']),
     txt="scripts/anvi_genomes_internal_{subset}.tab"
   output:
     "data/anvio_genomes_storage/{subset}_GENOMES.db"
