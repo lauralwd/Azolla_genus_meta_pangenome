@@ -155,15 +155,13 @@ rule create_pangenome_analysis_subset:
     stdout="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stdout",
     stderr="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stderr"
   threads: 12
-  params:
-    dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset)
   shell:
     """
     genomes=$(cut -f 1 {input.txt} | tail -n +2 | tr '\n' ',' | sed "s/,$//g" )
     anvi-pan-genome -g {input.allstorage}                           \
                     --project-name {wildcards.subset}_mcl{wildcards.mcl} \
                     --genome-names $genomes              \
-                    --output-dir   {params.dir}          \
+                    --output-dir "data/anvio_pangenomes" \
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
                     --exclude-partial-gene-calls         \
