@@ -125,16 +125,18 @@ rule create_pangenome_analysis_all:
   input:
     "data/anvio_genomes_storage/all_GENOMES.db"
   output:
-    "data/anvio_pangenomes/all_mcl{mcl}-PAN.db"
+    "data/anvio_pangenomes/all/all_mcl{mcl}-PAN.db"
   log:
     stdout="logs/pangenomics/anvi_create_pangenome_all_mcl{mcl}.stdout",
     stderr="logs/pangenomics/anvi_create_pangenome_all_mcl{mcl}.stderr"
   threads: 12
+  params:
+    dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset='all')
   shell:
     """
     anvi-pan-genome -g {input}                           \
-                    --project-name all_mcl{wildcards.mcl} \
-                    --output-dir data/anvio_pangenomes   \
+                    --project-name all_mcl{wildcards.mcl}\
+                    --output-dir {params.dir}            \
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
                     --min-occurrence 3                   \
@@ -146,22 +148,26 @@ rule create_pangenome_analysis_all:
 
 rule create_pangenome_analysis_subset:
   input:
-    allstorage="data/anvio_genomes_storage/all_GENOMES.db",
-    allpan="data/anvio_pangenomes/all_mcl{mcl}-PAN.db",
+    storage="data/anvio_genomes_storage/{subset}_GENOMES.db",
     txt="scripts/anvi_genomes_internal_{subset}.tab"
   output:
-    "data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db"
+    "data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db"
   log:
     stdout="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stdout",
     stderr="logs/pangenomics/anvi_create_pangenome_{subset}_mcl{mcl}.stderr"
   threads: 12
+  params:
+    dir=lambda w: expand ("data/anvio_pangenomes/{subset}/",subset=w.subset),
+    name=lambda w: expand ("{subset}_mcl{mcl}",
+                            subset = w.subset,
+                            mcl    = w.mcl)
   shell:
     """
     genomes=$(cut -f 1 {input.txt} | tail -n +2 | tr '\n' ',' | sed "s/,$//g" )
-    anvi-pan-genome -g {input.allstorage}                           \
-                    --project-name {wildcards.subset}_mcl{wildcards.mcl} \
+    anvi-pan-genome -g {input.storage}                   \
+                    --project-name {params.name}         \
                     --genome-names $genomes              \
-                    --output-dir "data/anvio_pangenomes" \
+                    --output-dir {params.dir}            \
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
                     --exclude-partial-gene-calls         \
@@ -173,10 +179,10 @@ rule create_pangenome_analysis_subset:
 
 rule create_pangenome_ANI:
   input:
-    pangenome="data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db",
+    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
     txt="scripts/anvi_genomes_internal_{subset}.tab"
   output:
-    directory("data/anvio_pangenomes/{subset}_ANI_mcl{mcl}")
+    directory("data/anvio_pangenomes/{subset}/{subset}_ANI_mcl{mcl}")
   log:
     stdout="logs/pangenomics/anvi_create_pangenome_ANI_{subset}_mcl{mcl}.stdout",
     stderr="logs/pangenomics/anvi_create_pangenome_ANI_{subset}_mcl{mcl}.stderr"
@@ -193,16 +199,16 @@ rule create_pangenome_ANI:
 
 rule collect_PAN_ANI_for_mcl:
   input:
-    expand("data/anvio_pangenomes/{subset}_ANI_mcl{{mcl}}",subset=ORDERS),
-    expand("data/anvio_pangenomes/{subset}_ANI_mcl{{mcl}}",subset='all')
+    expand("data/anvio_pangenomes/{subset}/{subset}_ANI_mcl{{mcl}}",subset=ORDERS),
+    expand("data/anvio_pangenomes/{subset}/{subset}_ANI_mcl{{mcl}}",subset='all')
   output:
     touch("data/anvio_pangenomes/all_pangenomes_MCL{mcl}.touch")
 
 
 rule extract_phylogenomic_fasta:
   input:
-    pangenome="data/anvio_pangenomes/{subset}_mcl{mcl}-PAN.db",
-    genomestorage="data/anvio_genomes_storage/all_GENOMES.db"
+    pangenome="data/anvio_pangenomes/{subset}/{subset}_mcl{mcl}-PAN.db",
+    genomestorage="data/anvio_genomes_storage/{subset}_GENOMES.db"
   output:
     fasta="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.fasta",
     partition="data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomic_core.partitions"
