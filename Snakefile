@@ -120,6 +120,7 @@ rule all_genome_storages:
     "data/anvio_genomes_storage/all_GENOMES.db"
 
 ############################### stage 2 create Azolla meta-pangenomes ###############################
+ruleorder: create_pangenome_analysis_all > create_pangenome_analysis_subset
 
 rule create_pangenome_analysis_all:
   input:
