@@ -171,7 +171,7 @@ rule create_pangenome_analysis_subset:
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
                     --exclude-partial-gene-calls         \
-                    --min-occurrence 3                   \
+                    --min-occurrence 2                   \
                     --mcl-inflation {wildcards.mcl}      \
                     --sensitive                          \
     > {log.stdout} 2> {log.stderr}
