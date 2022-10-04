@@ -143,6 +143,7 @@ rule create_pangenome_analysis_all:
                     --min-occurrence 3                   \
                     --mcl-inflation {wildcards.mcl}      \
                     --exclude-partial-gene-calls         \
+                    --enforce-hierarchical-clustering    \
                     --sensitive                          \
     > {log.stdout} 2> {log.stderr}
     """
@@ -172,6 +173,7 @@ rule create_pangenome_analysis_subset:
                     --num-threads  {threads}             \
                     --minbit 0.5                         \
                     --exclude-partial-gene-calls         \
+                    --enforce-hierarchical-clustering    \
                     --min-occurrence 2                   \
                     --mcl-inflation {wildcards.mcl}      \
                     --sensitive                          \
