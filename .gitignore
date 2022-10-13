@@ -2,3 +2,5 @@ data
 .*.swp
 .snakemake
 logs/
+analyses/*.pdf
+analyses/*.svg
