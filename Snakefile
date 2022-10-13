@@ -284,3 +284,9 @@ rule phylogenomic_tree_big:
            -pre {params.pre}    \
     > {log.stdout} 2> {log.stderr}
     """
+
+rule collect_PAN_ANI_for_mcl:
+  input:
+    expand("data/anvio_pangenomes/{subset}_mcl{mcl}_phylogenomics/{subset}_UFbootstrap.treefile)
+  output:
+    touch("data/anvio_pangenomes/all_phylgenomic_trees_MCL{mcl}.touch")
